@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Online Code Editor</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div>
+            <textarea id="code" rows="30" cols="100">
+            </textarea>
+        </div>
+        <div>
+            <button id="run" onclick="runCode()">Run</button>
+        </div>
+        <div>
+            <textarea id="result" rows="4" cols="100">
+            </textarea>
+        </div>
+        <script>
+            function runCode() {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("result").value = this.responseText
+                    }
+                };
+                xhttp.open("POST", "/run", true);
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(document.getElementById("code").value);
+            }
+        </script>
+    </body>
+</html>
